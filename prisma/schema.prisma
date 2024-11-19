@@ -1,0 +1,63 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  image        String?
+  password     String?  // Optional for OAuth users
+  name         String
+  phone_number String?
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+  isVerified   Boolean  @default(false)
+
+  ais          AI[]     // AIs created by this user
+  chats        Chat[]   // Chat sessions for this user
+}
+
+model AI {
+  id           Int      @id @default(autoincrement())
+  name         String   // Name of the AI
+  description  String  // Optional description of what the AI does
+  creatorId    Int?     // ID of the user who created the AI (null for predefined AIs)
+  creator      User?    @relation(fields: [creatorId], references: [id])
+  isPublic     Boolean  @default(true) // Whether others can see/search for this AI
+  prompt       String   // ai's prompt message
+  tagline      String   // Short tagline for the AI
+  greeting     String   // Greeting message when the AI starts a conversation
+  avatar       String  // URL for the AI's avatar image
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  chats        Chat[]   // Chat sessions involving this AI
+
+  @@index([name, description]) // Index for search optimization
+}
+
+
+model Chat {
+  id        Int      @id @default(autoincrement())
+  userId    Int      // ID of the user who initiated the chat
+  user      User     @relation(fields: [userId], references: [id])
+  aiId      Int      // ID of the AI involved in the chat
+  ai        AI       @relation(fields: [aiId], references: [id])
+  created_at DateTime @default(now())
+
+  messages  Message[] // Messages exchanged in the chat
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  chatId    Int      // ID of the chat session
+  chat      Chat     @relation(fields: [chatId], references: [id])
+  sender    String   // Sender of the message: "user" or "ai"
+  content   String   // Message content
+  created_at DateTime @default(now())
+}
