@@ -1,8 +1,7 @@
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
 import { NextResponse } from "next/server";
 import Groq from "groq-sdk";
+import getSession from "@/app/actions/getSession";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 type Body ={
@@ -12,7 +11,7 @@ type Body ={
     greeting: string;
 }
 export async function POST(request:Request){
-    const session = await getServerSession(authOptions);
+    const session = await getSession();
     
     if(!session){
         console.log("No session");

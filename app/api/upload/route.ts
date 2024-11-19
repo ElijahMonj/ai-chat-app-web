@@ -1,10 +1,10 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+
 import { NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary";
+import getSession from "@/app/actions/getSession";
 
 export async function POST(request: Request) {
-    const session = await getServerSession(authOptions);
+    const session = await getSession()
 
     if (!session) {
         return NextResponse.json({ authenticated: false, message: "Not authenticated" }, { status: 401 });

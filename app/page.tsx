@@ -1,10 +1,11 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+
 import Landing from "./Components/Landing";
 import AiCard from "./Components/AiCard";
 import { AI } from "@prisma/client";
+import getSession from "./actions/getSession";
+
 export default async function Home() {
-  const session = await getServerSession(authOptions);
+  const session = await getSession();
   const ais: Omit<AI, "created_at" | "updated_at" | "chats">[] = [
     
   ];

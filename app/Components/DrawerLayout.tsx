@@ -1,14 +1,14 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+
 import DrawerSide from "./DrawerSide";
 import Link from "next/link";
+import getSession from "../actions/getSession";
 
 interface DrawerLayoutProps {
     children: React.ReactNode; 
 }
 
 const DrawerLayout: React.FC<DrawerLayoutProps> = async ({children}) => {
-    const session = await getServerSession(authOptions);
+    const session = await getSession();
     return ( session ?
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />

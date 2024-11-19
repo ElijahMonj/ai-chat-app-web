@@ -1,11 +1,12 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+
 import { NextResponse } from "next/server";
 import {prisma} from '@/lib/prisma';
+import getSession from "@/app/actions/getSession";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
 export async function POST(request:Request){
 
-    const session = await getServerSession(authOptions);
+    const session = await getSession();
     if(!session||!session.user){
         console.log("No session");
         return NextResponse.json({authenticated:!!session});
@@ -19,9 +20,7 @@ export async function POST(request:Request){
 
     try {
 
-        const user = await prisma.user.findUnique({
-            where: { email: session.user.email ?? undefined },
-        });
+        const user = await getCurrentUser();
 
         if (!user) {
             return NextResponse.json({ error: "User not found" }, { status: 404 });

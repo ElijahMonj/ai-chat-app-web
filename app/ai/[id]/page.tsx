@@ -1,10 +1,9 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import getSession from "@/app/actions/getSession";
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
 import Link from "next/link";
 
 export default async function Page({ params }: { params: { id: string } }) {
-    const session = await getServerSession(authOptions);
+    const session = await getSession()
     const { id } = params;
 
     const user = await prisma.user.findUnique({
