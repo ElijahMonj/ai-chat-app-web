@@ -1,7 +1,6 @@
 
 import { NextResponse } from "next/server";
 import Groq from "groq-sdk";
-import getSession from "@/app/actions/getSession";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 type Body ={
@@ -11,13 +10,6 @@ type Body ={
     greeting: string;
 }
 export async function POST(request:Request){
-    const session = await getSession();
-    
-    if(!session){
-        console.log("No session");
-        return NextResponse.json({authenticated:!!session});
-    }
-    
     const body = await new Response(request.body).json()
     const chatCompletion = await getGroqChatCompletion(body);
     return NextResponse.json({ content: chatCompletion.choices[0]?.message?.content || "" });
@@ -39,7 +31,7 @@ export const getGroqChatCompletion = async (body: Body) => {
           content: userPrompt,
         },
       ],
-      model: "llama3-70b-8192",
+      model: "llama3-8b-8192",
       temperature: 0.5,
       max_tokens: 1024,
       top_p: 1,

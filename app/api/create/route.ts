@@ -1,16 +1,10 @@
 
 import { NextResponse } from "next/server";
 import {prisma} from '@/lib/prisma';
-import getSession from "@/app/actions/getSession";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 
 export async function POST(request:Request){
-
-    const session = await getSession();
-    if(!session||!session.user){
-        console.log("No session");
-        return NextResponse.json({authenticated:!!session});
-    }
+  
     const body = await new Response(request.body).json()
 
     const {name,tagline,description,greeting,prompt,avatar,isPublic} = body;

@@ -1,14 +1,8 @@
 
 import { NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary";
-import getSession from "@/app/actions/getSession";
 
 export async function POST(request: Request) {
-    const session = await getSession()
-
-    if (!session) {
-        return NextResponse.json({ authenticated: false, message: "Not authenticated" }, { status: 401 });
-    }
 
     try {
         const formData = await request.formData();  // Get the form data
