@@ -1,10 +1,12 @@
 
+import getCurrentUser from "@/app/actions/getCurrentUser";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import ToggleButton from "./Components/ToggleButton";
 
 export default async function Page({ params }: { params: { id: string } }) {
     const { id } = params;
-
+    const user = await getCurrentUser();
     // Fetch AI details from the database
     const ai = await prisma.aI.findUnique({
         where: { id: parseInt(id) },
@@ -12,7 +14,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     });
 
     // Handle cases where the AI does not exist
-    if (!ai) {
+    if (!ai || (ai && !ai.isPublic && ai.creatorId !== user?.id)) {
         return (
             <div className="flex items-center justify-center h-screen">
                 <div className="text-center">
@@ -29,14 +31,14 @@ export default async function Page({ params }: { params: { id: string } }) {
     }
 
     return (
-        <div className="container mx-auto mt-10 max-w-4xl">
+        <div className="container mx-auto mt-10 max-w-3xl">
             <div className="card shadow-lg bg-base-100">
                 <div className="card-body">
                     <div className="flex flex-col items-center">
                         <img
                             src={ai.avatar}
                             alt={ai.name}
-                            className="w-36 h-36 rounded-full shadow-md"
+                            className="w-36 h-36 rounded-full shadow-md object-cover"
                         />
                         <h1 className="text-3xl font-bold mt-4">{ai.name}</h1>
                         <p className=" mt-2">{ai.tagline}</p>
@@ -72,13 +74,13 @@ export default async function Page({ params }: { params: { id: string } }) {
                             </div>
                         </div>
                     </div>
-                    <div className="flex gap-5">
-                        <div className="mt-6">
+                    <div className="flex justify-between items-center mt-5">
+                        <div className="">
                             <Link href={`/chat/${ai.id}`} className="btn btn-primary w-full">
                                 Chat
                             </Link>
                         </div>
-
+                        {user?.id === ai.creatorId && <ToggleButton ai={ai}/>}
                     </div>
                     
                 </div>

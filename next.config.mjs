@@ -5,7 +5,11 @@ const nextConfig = {
             {
                 protocol: 'https',
                 hostname: 'res.cloudinary.com',
-                port: '', // No need for a port unless specified
+                pathname: '/**', // Matches all paths under this domain
+            },
+            {
+                protocol: 'https',
+                hostname: 'lh3.googleusercontent.com',
                 pathname: '/**', // Matches all paths under this domain
             },
         ],

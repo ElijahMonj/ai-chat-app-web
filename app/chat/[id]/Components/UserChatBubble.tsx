@@ -7,7 +7,7 @@ interface UserChatBubbleProps {
 const UserChatBubble: React.FC<UserChatBubbleProps> = ({message}) => {
     return ( 
         <div className="chat chat-end">
-            <div className="chat-bubble chat-bubble-secondary">{message.content}</div>          
+            <div className="chat-bubble chat-bubble-primary">{message.content}</div>          
         </div>
      );
 }

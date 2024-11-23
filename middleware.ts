@@ -4,8 +4,19 @@ import type { NextRequest } from "next/server";
 
 // Define paths that should bypass authentication
 const publicPaths = ["/login", "/register"];
-// Define API routes that require authentication
-const protectedApiRoutes = ["/api/create", "/api/getprompt", "/api/getresponse", "/api/upload"];
+
+// Define API routes and additional pages that require authentication
+const protectedPaths = [
+    "/api/create",
+    "/api/getprompt",
+    "/api/getresponse",
+    "/api/upload",
+    "/ai",
+    "/chat",
+    "/create",
+    "/explore",
+    "/profile",
+];
 
 export async function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl;
@@ -15,8 +26,8 @@ export async function middleware(req: NextRequest) {
         return NextResponse.next(); // Allow access to public paths
     }
 
-    // Check if the request is for a protected API route
-    if (protectedApiRoutes.some(path => pathname.startsWith(path))) {
+    // Check if the request is for a protected path
+    if (protectedPaths.some(path => pathname.startsWith(path))) {
         const token = await getToken({ req });
 
         // If the token doesn't exist, redirect to the login page

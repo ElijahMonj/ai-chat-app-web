@@ -56,7 +56,7 @@ model Chat {
 model Message {
   id        Int      @id @default(autoincrement())
   chatId    Int      // ID of the chat session
-  chat      Chat     @relation(fields: [chatId], references: [id])
+  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
   sender    String   // Sender of the message: "user" or "ai"
   content   String   // Message content
   created_at DateTime @default(now())

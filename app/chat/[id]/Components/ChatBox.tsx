@@ -6,6 +6,7 @@ import Input from './Input';
 import Image from 'next/image';
 import { useState } from 'react';
 import AiChatBubblePending from './AiChatBubblePending';
+import Link from 'next/link';
 
 interface ChatBoxProps {
     user: User;
@@ -94,19 +95,21 @@ const ChatBox: React.FC<ChatBoxProps> = ({ ai, chat, user }) => {
     };
 
     return (
-        <div className="flex flex-col max-w-xl mx-auto px-3 min-h-screen py-5">
+        <div className="flex flex-col max-w-xl w-full mx-auto px-3 min-h-screen py-5 items-center">
             <div className="flex flex-col items-center">
-                <Image
-                    src={ai.avatar}
-                    alt={ai.name}
-                    className="w-16 h-16 rounded-full shadow-md"
-                    width={64}
-                    height={64}
-                />
+                <Link href={"/ai/" + ai.id}>             
+                    <Image
+                        src={ai.avatar}
+                        alt={ai.name}
+                        className="w-16 h-16 rounded-full shadow-md"
+                        width={64}
+                        height={64}
+                    />  
+                </Link>
                 <h1 className="font-bold">{ai.name}</h1>
                 <p className="text-xs">by {ai.creator?.name}</p>
             </div>
-            <div className="flex-1">
+            <div className="flex-1 mb-12 w-full">
                 {messages.map((message,index) => {
                     if (message.sender === ai.name) {
                         return <AiChatBubble key={index} message={message} ai={ai} />;
@@ -123,6 +126,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ ai, chat, user }) => {
                 isPending={isPending}
                 setIsPending={setIsPending}
                 handleSubmit={handleSubmit}
+                chatId={chat.id}
             />
         </div>
     );

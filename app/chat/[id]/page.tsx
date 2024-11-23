@@ -91,7 +91,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     }
 
     return (
-        <div className="container mx-auto max-w-4xl">
+        <div className="container px-auto max-w-4xl">
             {chat && <ChatBox ai={ai} user={user as User} chat={chat} />}
         </div>
     );
