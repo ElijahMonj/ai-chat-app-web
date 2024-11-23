@@ -1,6 +1,5 @@
 import { Providers } from "./providers";
 import DrawerLayout from "./Components/DrawerLayout";
-import { Toaster } from "react-hot-toast";
 import type { Metadata } from 'next'
 import { Quicksand } from 'next/font/google'
 import './globals.css'
@@ -29,7 +28,6 @@ export default function RootLayout({
           {children}
           </DrawerLayout>
         </Providers>
-        <Toaster />
       </body>
     </html>
   );

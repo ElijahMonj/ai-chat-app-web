@@ -3,11 +3,15 @@ import { IoAddCircle, IoCompass } from "react-icons/io5";
 import { RiChatSmile3Fill } from "react-icons/ri";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import getCurrentUser from "../actions/getCurrentUser";
 import Image from "next/image";
-import { MdOutlineAccountCircle, MdOutlineLogout, MdOutlineSettings } from "react-icons/md";
-const DrawerSide = async () => {
-    const user = await getCurrentUser();
+
+import { User } from "@prisma/client";
+import DropDown from "./DropDown";
+
+interface DrawerSideProps {
+    user: User;
+}
+const DrawerSide: React.FC<DrawerSideProps> = async ({user}) => {
     const chats = await prisma.chat.findMany({
         where: {
             userId: user?.id || 0,
@@ -63,23 +67,28 @@ const DrawerSide = async () => {
  
                         <div tabIndex={0} role="button" className="btn w-full">
                             <div className="avatar">
-                                <div className="w-5 rounded-full">
-                                    <Image src={user?.image} 
-                                    alt={user?.name}
-                                    width={64}
-                                    height={64}
-                                    />
-                                </div>
+                                {user.image ? (
+                                    <div className="w-5 h-5 rounded-full overflow-hidden">
+                                        <Image
+                                            src={user.image}
+                                            alt={user?.name}
+                                            width={96}
+                                            height={96}
+                                            className="object-cover"
+                                            quality={100}   
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className="avatar placeholder">
+                                        <div className="bg-neutral text-neutral-content w-5 h-5 rounded-full flex items-center justify-center">
+                                            <span className="text-xs">{user.name[0].toUpperCase()}</span>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                             {user?.name}
                         </div>
-                        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                            <li>
-                                <Link href={'/profile'}>Profile <MdOutlineAccountCircle className="ms-auto"/></Link>
-                            </li>
-                            <li><a>Settings <MdOutlineSettings className="ms-auto"/></a></li>
-                            <li><a>Logout <MdOutlineLogout className="ms-auto"/></a></li>
-                        </ul>
+                        <DropDown user={user}/>
                    
                 </div>
             </ul>

@@ -33,7 +33,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                     {profileData.image ? (
                         <div className="w-24 h-24 rounded-full overflow-hidden">
                             <Image
-                                src={profileData.image || "/default-profile.png"}
+                                src={profileData.image}
                                 alt="Profile Image"
                                 width={96}
                                 height={96}

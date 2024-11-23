@@ -8,6 +8,8 @@ const publicPaths = ["/login", "/register"];
 // Define API routes and additional pages that require authentication
 const protectedPaths = [
     "/api/create",
+    "/api/update-name",
+    "/api/update-password",
     "/api/getprompt",
     "/api/getresponse",
     "/api/upload",
