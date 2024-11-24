@@ -16,7 +16,7 @@ export default async function Home() {
           {/* Cards Section */}
           <div className="px-4 py-8">
             <h2 className="text-xl md:text-2xl font-bold mb-4">Featured you</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {ais.map((ai) => (
                     <AiCard data={ai} key={ai.id} />
                 ))}
@@ -24,7 +24,7 @@ export default async function Home() {
           </div>
           <div className="px-4">
             <h2 className="text-xl md:text-2xl font-bold mb-4">New</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {ais.map((ai) => (
                     <AiCard data={ai} key={ai.id} />
                 ))}

@@ -82,7 +82,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                                 {/* Text Container */}
                                 <div className="flex-1">
                                     <h5 className="text-md font-semibold truncate">{ai.name}</h5>
-                                    <p className="text-xs line-clamp-2">
+                                    <p className="text-xs line-clamp-2 break-all">
                                         {ai.description}
                                     </p>
                                 </div>

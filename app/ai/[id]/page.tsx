@@ -62,9 +62,9 @@ export default async function Page({ params }: { params: { id: string } }) {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                             <div>
                                 <p className="text-sm">Created by:</p>
-                                <p className="font-medium">
+                                <Link className="font-medium link-hover" href={`/profile/${ai.creatorId}`}>
                                     {ai.creator?.name || "Predefined AI"}
-                                </p>
+                                </Link>
                             </div>
                             <div>
                                 <p className="text-sm">Created on:</p>

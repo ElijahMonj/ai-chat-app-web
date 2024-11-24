@@ -48,6 +48,7 @@ const Input: React.FC<InputProps> = ({
     }
 
     return (
+        <>
         <form
             onSubmit={handleSubmit}
             className="flex items-center flex-col gap-2 bottom-0 w-full max-w-xl p-3 fixed bg-base-100"
@@ -82,7 +83,9 @@ const Input: React.FC<InputProps> = ({
                     Delete Chat
                 </div>
             </div>
-            <dialog id="delete_chat" className="modal modal-bottom sm:modal-middle">
+            
+        </form>
+        <dialog id="delete_chat" className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Deleting Chat</h3>
                     <p className="py-4">Are you sure you want to delete this chat?</p>
@@ -103,7 +106,7 @@ const Input: React.FC<InputProps> = ({
                     </div>
                 </div>
             </dialog>
-        </form>
+        </>
     );
 };
 

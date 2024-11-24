@@ -1,9 +1,10 @@
-import { AI } from "@prisma/client";
+
 import Image from "next/image";
 import Link from "next/link";
 
 interface AiCardProps {
-    data:Omit<AI, "created_at" | "updated_at" | "chats">
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data: any;
 }
 const AiCard: React.FC<AiCardProps> = ({data}) => {
     return ( 
@@ -21,8 +22,8 @@ const AiCard: React.FC<AiCardProps> = ({data}) => {
         </figure>
         <div className="card-body">
           <h2 className="card-title">{data.name}</h2>
-          <p className="text-sm break-all">By @monjardinelijah120@gmail.com</p>
-          <p>{data.description}</p>
+          <p className="text-sm break-all">By {data.creator.email}</p>
+          <p>{data.tagline}</p>
         </div>
       </Link>
      );
