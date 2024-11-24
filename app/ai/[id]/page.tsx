@@ -18,12 +18,12 @@ export default async function Page({ params }: { params: { id: string } }) {
         return (
             <div className="flex items-center justify-center h-screen">
                 <div className="text-center">
-                    <h2 className="text-3xl font-bold">AI Not Found</h2>
+                    <h2 className="text-3xl font-bold">Pal Not Found</h2>
                     <p className=" mt-2">
-                        The AI with ID <span className="font-semibold">{id}</span> does not exist.
+                        The Pal with ID <span className="font-semibold">{id}</span> does not exist or is private.
                     </p>
                     <Link href="/explore" className="btn btn-primary mt-4">
-                        Explore AIs
+                        Explore Pals
                     </Link>
                 </div>
             </div>

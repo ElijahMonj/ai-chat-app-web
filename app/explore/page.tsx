@@ -11,6 +11,7 @@ const ExplorePage = async () => {
         include: {
             creator: true,
         },
+        take: 10,
     });
 
     return (ais.length === 0 ? (

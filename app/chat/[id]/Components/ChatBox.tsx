@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import AiChatBubblePending from './AiChatBubblePending';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface ChatBoxProps {
     user: User;
@@ -43,7 +44,7 @@ interface ChatBoxProps {
 }
 
 const ChatBox: React.FC<ChatBoxProps> = ({ ai, chat, user }) => {
-
+    const router = useRouter();
     const [newMessage, setNewMessage] = useState<string>("");
     const [isPending, setIsPending] = useState(false);
     const [messages, setMessages] = useState(chat.messages);
@@ -90,7 +91,10 @@ const ChatBox: React.FC<ChatBoxProps> = ({ ai, chat, user }) => {
             ...prevMessages,
             { id: prevMessages.length + 2, chatId: chat.id, sender: ai.name, content: aiResponse, created_at: new Date() }
         ]);
-       
+        if (chat.messages.length === 1) {
+            console.log("First message sent");
+            router.refresh();
+        }
         setIsPending(false);
     };
 

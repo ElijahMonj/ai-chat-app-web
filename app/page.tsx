@@ -9,6 +9,9 @@ export default async function Home() {
   const ais= await prisma.aI.findMany({
     take: 4,
     include: { creator: true },
+    where: {
+        isPublic: true,
+    },
   });
   
   return (session ?
