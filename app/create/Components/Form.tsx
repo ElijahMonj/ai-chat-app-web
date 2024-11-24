@@ -62,7 +62,7 @@ const SimpleForm = () => {
             }
 
         } else {
-            console.error("Failed to create AI");
+            console.error("Failed to create Pal");
         }
         setIsLoading(false);
     }
@@ -81,7 +81,7 @@ const SimpleForm = () => {
         });
         
         if(res.ok){
-            toast.success("AI created successfully");
+            toast.success("Pal created successfully");
 
             setName("");
             setTagline("");
@@ -101,12 +101,12 @@ const SimpleForm = () => {
             {/* AI Name */}
             <div>
                 <label className="block text-sm font-medium mb-2" htmlFor="name">
-                    AI Name
+                    Pal Name
                 </label>
                 <input
                     type="text"
                     id="name"
-                    placeholder="Enter the AI's name"
+                    placeholder="Enter the Pal's name"
                     className="input input-bordered w-full"
                     required
                     value={name}
@@ -127,7 +127,7 @@ const SimpleForm = () => {
                 <input
                     type="text"
                     id="tagline"
-                    placeholder="Enter a short slogan or role for the AI"
+                    placeholder="Enter a short slogan or role for the Pal"
                     className="input input-bordered w-full"
                     required
                     value={tagline}
@@ -147,7 +147,7 @@ const SimpleForm = () => {
                 </label>
                 <textarea
                     id="description"
-                    placeholder="Describe the AI's background and personality"
+                    placeholder="Describe the Pal's background and personality"
                     className="textarea textarea-bordered w-full"
                     rows={3}
                     required
@@ -168,7 +168,7 @@ const SimpleForm = () => {
                 </label>
                 <textarea
                     id="greeting"
-                    placeholder="What should the AI say when users start a conversation?"
+                    placeholder="What should your Pal say when users start a conversation?"
                     className="textarea textarea-bordered w-full"
                     rows={3}
                     required
@@ -226,24 +226,33 @@ const SimpleForm = () => {
                 </div>
             </div>
 
-            <div>
-                <label className="block text-sm font-medium mb-2" htmlFor="isPublic">
-                    Public AI
-                </label>
-                <input
-                    type="checkbox"
-                    id="isPublic"
-                    className="toggle toggle-primary"
-                    checked={isPublic}
-                    onChange={(e) => setIsPublic(e.target.checked)}
-                />
+            <div className="flex flex-col gap-4">
+                <div>
+                    <label className="block text-sm font-medium mb-2" htmlFor="isPublic">
+                        Public Pal
+                    </label>
+                    <div className="flex items-center">
+                        <input
+                            type="checkbox"
+                            id="isPublic"
+                            className="toggle toggle-primary"
+                            checked={isPublic}
+                            onChange={(e) => setIsPublic(e.target.checked)}
+                        />
+                        <p className="text-sm ms-5 text-gray-600">
+                            When turned on, your Pal will be available for others to talk to or use in their chats.
+                        </p>
+                    </div>
+                </div>
+                
             </div>
+
 
 
             {/* Submit Button */}
             <div className="text-right">
                 <button type="submit" className="btn btn-primary" disabled={isLoading}>
-                    Create AI
+                    Create Pal
                 </button>
             </div>
             <Toaster />

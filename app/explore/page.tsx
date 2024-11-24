@@ -14,7 +14,7 @@ const ExplorePage = async () => {
     });
 
     return (ais.length === 0 ? (
-                <p className="text-center">No AIs found. Check back later!</p>
+                <p className="text-center">No Pals found. Check back later!</p>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {ais.map((ai) => (

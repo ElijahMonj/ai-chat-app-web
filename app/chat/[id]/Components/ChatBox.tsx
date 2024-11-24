@@ -109,7 +109,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ ai, chat, user }) => {
                 <h1 className="font-bold">{ai.name}</h1>
                 <p className="text-xs">by {ai.creator?.name}</p>
             </div>
-            <div className="flex-1 mb-12 w-full">
+            <div className="flex-1 mb-20 w-full">
                 {messages.map((message,index) => {
                     if (message.sender === ai.name) {
                         return <AiChatBubble key={index} message={message} ai={ai} />;

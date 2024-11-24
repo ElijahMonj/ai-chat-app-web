@@ -35,10 +35,10 @@ export default async function Page({ params }: { params: { id: string } }) {
                             <Image
                                 src={profileData.image}
                                 alt="Profile Image"
-                                width={96}
-                                height={96}
-                                className="object-cover"
-                                quality={100}   
+                                width={512}
+                                height={512}
+                                className="object-cover w-24 h-24 rounded-full"
+                                quality={100}
                             />
                         </div>
                     ) : (
@@ -57,36 +57,42 @@ export default async function Page({ params }: { params: { id: string } }) {
 
             {/* Characters Section */}
             <div className="w-full max-w-lg">
-                <h4 className="text-lg font-semibold mb-4 text-center">Characters</h4>
-                <div className="space-y-1">
-                    {profileData.ais.map((ai) => (
-                        <Link
-                            href={`/ai/${ai.id}`}
-                            key={ai.id}
-                            className="flex items-center gap-4 p-4 bg-base-100 rounded-lg shadow-sm hover:bg-base-200 transition"
-                        >
-                            {/* Image Container */}
-                            <div className="w-16 h-16 relative rounded-lg overflow-hidden flex-shrink-0">
-                                <Image
-                                    src={ai.avatar}
-                                    alt="AI Image"
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-                            {/* Text Container */}
-                            <div className="flex-1">
-                                <h5 className="text-md font-semibold truncate">{ai.name}</h5>
-                                <p className="text-xs line-clamp-2">
-                                    {ai.description}
-                                </p>
-                            </div>
-                            <div className="relative overflow-hidden flex-shrink-0">
-                               {ai.isPublic ? <RiGlobalLine /> : <RiGitRepositoryPrivateLine />} 
-                            </div>
-                        </Link>
-                    ))}
-                </div>
+                <h4 className="text-lg font-semibold mb-4 text-center">Pals</h4>
+                {profileData.ais.length === 0 ? (
+                    <div className="text-center text-gray-500 text-sm">
+                        No Pals Created
+                    </div>
+                ) : (
+                    <div className="space-y-1">
+                        {profileData.ais.map((ai) => (
+                            <Link
+                                href={`/ai/${ai.id}`}
+                                key={ai.id}
+                                className="flex items-center gap-4 p-4 bg-base-100 rounded-lg shadow-sm hover:bg-base-200 transition"
+                            >
+                                {/* Image Container */}
+                                <div className="w-16 h-16 relative rounded-lg overflow-hidden flex-shrink-0">
+                                    <Image
+                                        src={ai.avatar}
+                                        alt="AI Image"
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+                                {/* Text Container */}
+                                <div className="flex-1">
+                                    <h5 className="text-md font-semibold truncate">{ai.name}</h5>
+                                    <p className="text-xs line-clamp-2">
+                                        {ai.description}
+                                    </p>
+                                </div>
+                                <div className="relative overflow-hidden flex-shrink-0">
+                                    {ai.isPublic ? <RiGlobalLine /> : <RiGitRepositoryPrivateLine />}
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

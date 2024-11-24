@@ -32,7 +32,7 @@ const DrawerLayout: React.FC<DrawerLayoutProps> = async ({children}) => {
                 </div>
                 <div className="flex-1">
                     <Link href={'/'} className="btn btn-ghost text-xl no-animation">
-                        asdfadsf
+                        NeoPal
                     </Link>
                 </div>
             </div>

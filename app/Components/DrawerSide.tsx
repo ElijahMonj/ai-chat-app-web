@@ -4,9 +4,9 @@ import { RiChatSmile3Fill } from "react-icons/ri";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import Image from "next/image";
-
 import { User } from "@prisma/client";
 import DropDown from "./DropDown";
+import PrivacyTerms from "./PrivacyTerms";
 
 interface DrawerSideProps {
     user: User;
@@ -27,11 +27,11 @@ const DrawerSide: React.FC<DrawerSideProps> = async ({user}) => {
             
             <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
             <Link href={'/'} className="btn btn-ghost text-xl no-animation justify-start">
-                What the fuck is this
+                NeoPal
             </Link>
             {/* Sidebar content here */}
             <li><Link href='/explore'><IoCompass  /> Explore</Link></li>
-            <li><Link href='/create'><IoAddCircle />Create AI</Link></li>
+            <li><Link href='/create'><IoAddCircle />Create Pal</Link></li>
             <li>
                 <details open>
                 <summary><RiChatSmile3Fill />Chats</summary>
@@ -49,7 +49,7 @@ const DrawerSide: React.FC<DrawerSideProps> = async ({user}) => {
                                 <Link href={'/chat/' + chat.ai.id}>
                                     <div className="avatar">
                                         <div className="w-5 rounded-full">
-                                            <img src={chat.ai.avatar} />
+                                            <img src={chat.ai.avatar} alt={chat.ai.name} className="object-cover" />
                                         </div>
                                     </div>
                                     {chat.ai.name}
@@ -61,7 +61,7 @@ const DrawerSide: React.FC<DrawerSideProps> = async ({user}) => {
 
                 </details>
             </li>
-            <li className="mt-auto w-full text-center text-xs">Privacy Policy • Terms of Service</li>
+            <PrivacyTerms />
 
                 <div className="dropdown dropdown-top dropdown-end">
  

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Define paths that should bypass authentication
-const publicPaths = ["/login", "/register"];
+const publicPaths = ["/auth"];
 
 // Define API routes and additional pages that require authentication
 const protectedPaths = [
