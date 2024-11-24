@@ -15,11 +15,13 @@ const ModalSettings: React.FC<ModalSettingsProps> = ({ user }) => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isUpdatingName, setIsUpdatingName] = useState(false);
     const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
+    const [isUpdatingAvatar, setIsUpdatingAvatar] = useState(false);
+    const [avatar, setAvatar] = useState<File | null>(null);
     const router = useRouter();
     const handleUpdateName = async () => {
         setIsUpdatingName(true);
         if (!name.trim()) {
-            alert("Name cannot be empty!");
+            toast.error("Name cannot be empty!");
             setIsUpdatingName(false);
             return;
         }
@@ -74,6 +76,38 @@ const ModalSettings: React.FC<ModalSettingsProps> = ({ user }) => {
             setIsUpdatingPassword(false);
         }
     };
+
+    const handleUpdateAvatar = async () => {
+        if (!avatar) {
+            toast.error("Please select an image to update avatar.");
+            return;
+        }
+
+        try {
+            setIsUpdatingAvatar(true)
+            const formData = new FormData();
+            formData.append("avatar", avatar);
+
+            const response = await fetch("/api/update-avatar", {
+                method: "POST",
+                body: formData,
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Failed to update avatar");
+            }
+
+            toast.success("Avatar updated successfully!");
+            setIsUpdatingAvatar(false);
+            router.refresh();
+        } catch (error) {
+            console.error(error);
+            const errorMessage = error instanceof Error ? error.message : "Error updating avatar.";
+            toast.error(errorMessage);
+        }
+    }
     
 
     return (
@@ -83,7 +117,75 @@ const ModalSettings: React.FC<ModalSettingsProps> = ({ user }) => {
                     <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                 </form>
                 <h3 className="font-bold text-lg">Account Settings</h3>
+                {/* Update Avatar */}
+                <div className="form-control">
+                <div className="flex justify-evenly items-end mb-5">
+                        {/* Avatar Rendering */}
+                        {avatar ? (
+                            <div className="avatar">
+                                <div className="rounded-full w-16 h-16 ring ring-primary ring-offset-base-100 ring-offset-2">
+                                    <img
+                                        src={URL.createObjectURL(avatar)} // Create a preview URL for the uploaded avatar
+                                        alt="avatar"
+                                        className="rounded-full w-24 h-24"
+                                    />
+                                </div>
+                            </div>
+                        ) : user.image ? (
+                            <div className="avatar">
+                                <div className="rounded-full w-16 h-16 ring ring-primary ring-offset-base-100 ring-offset-2">
+                                    <img
+                                        src={user.image}
+                                        alt="avatar"
+                                        className="rounded-full w-24 h-24"
+                                    />
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="avatar placeholder">
+                                <div className="bg-neutral text-neutral-content w-16 rounded-full">
+                                    <span>{user.name.charAt(0)}</span>
+                                </div>
+                            </div>
+                        )}
 
+                        {/* File Input for Avatar */}
+                        <div>
+                            <label className="label">
+                                <span className="label-text">Avatar</span>
+                            </label>
+                            <input
+                                type="file"
+                                className="file-input file-input-bordered w-full max-w-xs"
+                                accept="image/*" // Ensure only image files can be selected
+                                onChange={(e) => {
+                                    const file = e.target.files?.[0];
+                                    if (file) {
+                                        const validTypes = ["image/jpeg", "image/png", "image/gif"]; // Allowed file types
+                                        const maxSize = 2 * 1024 * 1024; // Maximum size (2MB)
+
+                                        if (!validTypes.includes(file.type)) {
+                                            toast.error("Only JPEG, PNG, or GIF files are allowed.");
+                                            return;
+                                        }
+
+                                        if (file.size > maxSize) {
+                                            toast.error("File size must not exceed 2MB.");
+                                            return;
+                                        }
+
+                                        setAvatar(file); // Update the state with the validated file
+                                    }
+                                }}
+                            />
+
+                        </div>
+                    </div>
+
+                   
+                    <button onClick={handleUpdateAvatar} disabled={isUpdatingAvatar || !avatar}
+                    className="btn btn-primary mt-2">Update Avatar</button>
+                </div>
                 {/* Update Name */}
                 <div className="form-control">
                     <label className="label">

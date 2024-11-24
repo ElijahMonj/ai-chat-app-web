@@ -2,7 +2,7 @@
 
 import { AI } from "@prisma/client";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 interface ToggleButtonProps {
     ai: AI;
@@ -98,6 +98,7 @@ export default function ToggleButton({ ai }: ToggleButtonProps) {
                     </div>
                 </div>
             </dialog>
+            <Toaster />
         </div>
     );
 }

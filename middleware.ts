@@ -10,6 +10,7 @@ const protectedPaths = [
     "/api/create",
     "/api/update-name",
     "/api/update-password",
+    "/api/update-avatar",
     "/api/getprompt",
     "/api/getresponse",
     "/api/upload",
