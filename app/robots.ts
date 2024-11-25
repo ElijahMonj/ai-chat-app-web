@@ -7,6 +7,6 @@ export default function robots():MetadataRoute.Robots {
             allow: "/",
             disallow: ["/ai", "/chat","/create","/explore","/profile"]
         },
-        sitemap: "https://delightnailspa.com/sitemap.xml"
+        sitemap: "https://neopal.vercel.app/sitemap.xml"
     };
 }

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://neopal.ai",
+    url: "https://neopal.vercel.app/",
     siteName: "NeoPal",
     title: "NeoPal | Custom AI Personalities",
     description: "A platform for creating custom AI personalities",
