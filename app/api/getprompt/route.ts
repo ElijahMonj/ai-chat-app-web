@@ -16,7 +16,7 @@ export async function POST(request:Request){
 }
 
 
-export const getGroqChatCompletion = async (body: Body) => {
+const getGroqChatCompletion = async (body: Body) => {
 
     const userPrompt = `Character name is ${body.name}, tagline is ${body.tagline}, description is ${body.description}.`;
 
