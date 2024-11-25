@@ -35,7 +35,7 @@ export async function middleware(req: NextRequest) {
 
         // If the token doesn't exist, redirect to the login page
         if (!token) {
-            const loginUrl = new URL("/login", req.url);
+            const loginUrl = new URL("/auth", req.url);
             loginUrl.searchParams.set("callbackUrl", req.url); // Redirect back after login
             return NextResponse.redirect(loginUrl);
         }

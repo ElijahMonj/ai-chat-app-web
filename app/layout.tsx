@@ -11,8 +11,16 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "My Next.js 14 App",
-  description: "Created with Next.js 14 and Montserrat font",
+  title: "NeoPal | Custom AI Personalities",
+  description: "A platform for creating custom AI personalities",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://neopal.ai",
+    siteName: "NeoPal",
+    title: "NeoPal | Custom AI Personalities",
+    description: "A platform for creating custom AI personalities",
+  },
 };
 
 export default function RootLayout({

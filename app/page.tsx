@@ -1,38 +1,20 @@
 
 import Landing from "./Components/Landing";
-import AiCard from "./Components/AiCard";
 import getSession from "./actions/getSession";
-import { prisma } from "@/lib/prisma";
+import Showcase from "./Components/Homepage/Showcase";
+import New from "./Components/Homepage/New";
+import Featured from "./Components/Homepage/Featured";
 
 export default async function Home() {
   const session = await getSession();
-  const ais= await prisma.aI.findMany({
-    take: 4,
-    include: { creator: true },
-    where: {
-        isPublic: true,
-    },
-  });
+  
   
   return (session ?
       <main className="container mx-auto  min-h-screen">
           {/* Cards Section */}
-          <div className="px-4 py-8">
-            <h2 className="text-xl md:text-2xl font-bold mb-4">Featured you</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {ais.map((ai) => (
-                    <AiCard data={ai} key={ai.id} />
-                ))}
-              </div>
-          </div>
-          <div className="px-4">
-            <h2 className="text-xl md:text-2xl font-bold mb-4">New</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {ais.map((ai) => (
-                    <AiCard data={ai} key={ai.id} />
-                ))}
-              </div>
-          </div>
+          <Showcase />
+          <Featured />
+          <New />
       </main> 
      : 
      <Landing />
