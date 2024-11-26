@@ -29,7 +29,7 @@ const AiCardHorizontal: React.FC<AiCardHorizontalProps> = ({data}) => {
                     {data.tagline}
                 </p>
                 <p className="text-xs line-clamp-2 mt-3 break-all">
-                    Description: {data.description} 
+                    {data.description} 
                 </p>
             </div>
             

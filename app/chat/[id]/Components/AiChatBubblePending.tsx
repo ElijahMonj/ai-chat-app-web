@@ -29,7 +29,7 @@ const AiChatBubblePending: React.FC<AiChatBubblePendingProps> = ({ai}) => {
                 </div>
             </div>
             <div className="chat-header">
-                Obi-Wan Kenobi    
+                {ai.name}
             </div>
             <div className="chat-bubble"><span className="loading loading-dots loading-md"></span></div>
         </div>
